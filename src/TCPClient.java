@@ -5,25 +5,32 @@ import java.net.Socket;
 
 public class TCPClient {
     public static void main(String args[]) throws Exception {
-        String sentence;
+        while(true) {
+        String sentence = "";
         String serverSentence;
 
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
-        Socket clientSocket = new Socket("192.168.1.1", 6789);
+        Socket clientSocket = new Socket("192.168.1.65", 6789);
 
         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 
         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//        while (!sentence.matches("[@#$%&*()_+=|<>{}~]")) {
 
         sentence = inFromUser.readLine();
+        if (sentence.matches("[@#$%&*()_+=|<>{}~]")) {
+            clientSocket.close();
+        }
 
-        outToServer.writeBytes(sentence);
+            outToServer.writeBytes(sentence + '\n');
 
-        serverSentence = inFromServer.readLine();
+            serverSentence = inFromServer.readLine();
 
-        System.out.println("FROM SERVER: " + serverSentence);
+            System.out.println("FROM SERVER: " + serverSentence);
+        }
 
-        clientSocket.close();
+        // Anything thats not a '?', '!', '.', ',' is considered a special character which ends the connection
+
     }
 }
