@@ -48,8 +48,6 @@ public class TCPServer {
                             } else {
                                 outputSentence += ' ' + line.split("\t")[1];
                             }
-//                            clientSentenceArray[i] = line.split("\t")[1];
-//                            System.out.println("Will return to client: " + Arrays.toString(clientSentenceArray));
                             System.out.println("Building: " + outputSentence);
                         }
                     }
